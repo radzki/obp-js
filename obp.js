@@ -1,8 +1,8 @@
 const successPage = "https://ohboxparty.com.br/sucesso";
 
 /* Checkout */
-const day = 24 * 60 * 60 * 1000;
 
+// const day = 24 * 60 * 60 * 1000;
 
 function isCheckout() {
     let url = window.location.href;
@@ -23,45 +23,23 @@ function isTedOrPix() {
 
 function isSuccessPage() {
     let url = window.location.href;
-    return (url.indexOf(successPage) >= 0); 
+    return (url.indexOf(successPage) >= 0);
 }
 
 
 function obpMain() {
 
     if (isCheckout() && isSuccess()) {
-        
-        cookieStore.set({
-              name: "ted_pix",
-              value: isTedOrPix(),
-              expires: Date.now() + day,
-              domain: "ohboxparty.com.br"
-            });
-
-        window.location.href = successPage;
-    }
-
-    else if (isSuccessPage()) {
-        cookieStore.get("ted_pix").then(function(v){
-            if (v.value == "true") {
-                document.getElementById("ted_pix").style.visibility = "visible";
-                document.getElementById("success_message").remove();
-            }
-
-        });
+        // Appends Success page in order to log analytics metric
+        document.getElementsByTagName('body')[0].innerHTML += '<iframe src="' + successPage + '" style="height: 0px; width: 0px;"></iframe>'
     }
 
 }
 
 
 window.addEventListener('load', function() {
-    try {
-        obpMain();    
-    }
-    catch (e) 
-    {
-        console.log(e);
-    }
-})
+    try { obpMain();}
+    catch (e) { console.log(e);}
+});
 
 
