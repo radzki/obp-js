@@ -1,8 +1,8 @@
-var redir = "https://ohboxparty.com.br/sucesso"
+const successPage = "https://ohboxparty.com.br/sucesso";
 
-// Checkout fns
-
+/* Checkout */
 const day = 24 * 60 * 60 * 1000;
+
 
 function isCheckout() {
     let url = window.location.href;
@@ -19,6 +19,14 @@ function isTedOrPix() {
     return (srch.indexOf('Aguardando pagamento') >= 0);
 }
 
+/* Success Page */
+
+function isSuccessPage() {
+    let url = window.location.href;
+    return (url.indexOf(successPage) >= 0); 
+}
+
+
 function obpMain() {
 
     if (isCheckout() && isSuccess()) {
@@ -30,7 +38,17 @@ function obpMain() {
               domain: "ohboxparty.com.br"
             });
 
-        window.location.href = redir;
+        window.location.href = successPage;
+    }
+
+    else if (isSuccessPage()) {
+        cookieStore.get("ted_pix").then(function(v){
+            if (v.value == "true") {
+                document.getElementById("ted_pix").style.visibility = "visible";
+                document.getElementById("success_message").remove();
+            }
+
+        });
     }
 
 }
