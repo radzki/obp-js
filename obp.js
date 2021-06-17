@@ -1,34 +1,28 @@
-function defer(method) {
-	if (window.$ !== undefined && window.$ !== null) {
-		method();
-	} else {
-		setTimeout(function() { defer(method) }, 50);
-	}
+var redir = "https://ohboxparty.com.br/sucesso"
+
+function isCheckout() {
+    let url = window.location.href;
+    let res = url.indexOf("checkout");
+    return res >= 0;
 }
 
+
+function isSuccess() {
+    let url = window.location.href;
+    let res = url.indexOf("success");
+    return res >= 0; 
+}
 
 function obpMain() {
 
-	function isCheckout() {
-		url = window.location.href;
-		res = url.indexOf("checkout");
-		return res >= 0;
-	}
+    if (isCheckout() && isSuccess()) {
+        window.location.href = redir;
+    }
 
-
-	$(function()
-	{
-		$(window).bind('load', function()
-		{
-			if (isCheckout()){
-				console.log("Checkout!!!");
-			}
-		});
-	});
-
-	console.log("Functions loaded successfully.");
 }
 
-defer(obpMain);
+window.addEventListener('load', function() {
+    obpMain();
+})
 
 
