@@ -1,28 +1,47 @@
 var redir = "https://ohboxparty.com.br/sucesso"
 
+// Checkout fns
+
 function isCheckout() {
     let url = window.location.href;
-    let res = url.indexOf("checkout");
-    return res >= 0;
+    return (url.indexOf("checkout") >= 0);
 }
-
 
 function isSuccess() {
     let url = window.location.href;
-    let res = url.indexOf("success");
-    return res >= 0; 
+    return (url.indexOf("success") >= 0); 
+}
+
+function isTedOrPix() {
+    let srch = document.getElementsByClassName('status panel')[0].innerText;
+    return (srch.indexOf('Aguardando pagamento') >= 0);
 }
 
 function obpMain() {
 
     if (isCheckout() && isSuccess()) {
+        
+        if (isTedOrPix()) {
+            window.localStorage["ted_pix"] = true;    
+        }
+        else {
+            window.localStorage["ted_pix"] = false;
+        }
+        
         window.location.href = redir;
     }
 
 }
 
+
 window.addEventListener('load', function() {
-    obpMain();
+    try {
+        obpMain();    
+    }
+    catch (e) 
+    {
+        console.log(e);
+    }
 })
 
 
