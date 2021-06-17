@@ -1,5 +1,5 @@
 function defer(method) {
-	if (window.$) {
+	if (window.$ !== undefined && window.$ !== null) {
 		method();
 	} else {
 		setTimeout(function() { defer(method) }, 50);
