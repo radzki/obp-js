@@ -1,4 +1,4 @@
-const successPage = "https://ohboxparty.com.br/sucesso";
+const successPage = "https://www.ohboxparty.com.br/sucesso";
 
 /* Checkout */
 
