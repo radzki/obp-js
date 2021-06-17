@@ -2,6 +2,8 @@ var redir = "https://ohboxparty.com.br/sucesso"
 
 // Checkout fns
 
+const day = 24 * 60 * 60 * 1000;
+
 function isCheckout() {
     let url = window.location.href;
     return (url.indexOf("checkout") >= 0);
@@ -21,13 +23,13 @@ function obpMain() {
 
     if (isCheckout() && isSuccess()) {
         
-        if (isTedOrPix()) {
-            cookieStore.set("ted_pix", true);    
-        }
-        else {
-            cookieStore.set("ted_pix", false);
-        }
-        
+        cookieStore.set({
+              name: "ted_pix",
+              value: isTedOrPix(),
+              expires: Date.now() + day,
+              domain: "ohboxparty.com.br"
+            });
+
         window.location.href = redir;
     }
 
