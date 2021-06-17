@@ -22,10 +22,10 @@ function obpMain() {
     if (isCheckout() && isSuccess()) {
         
         if (isTedOrPix()) {
-            window.localStorage["ted_pix"] = true;    
+            cookieStore.set("ted_pix", true);    
         }
         else {
-            window.localStorage["ted_pix"] = false;
+            cookieStore.set("ted_pix", false);
         }
         
         window.location.href = redir;
