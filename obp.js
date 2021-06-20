@@ -1,4 +1,4 @@
-const successPage = "https://ohboxparty.lojavirtualnuvem.com.br/sucesso";
+const successPage = "https://google.com";
 
 /* Checkout */
 
